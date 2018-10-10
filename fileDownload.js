@@ -113,4 +113,4 @@ function excelDownload(postData, action){
 	};
 	$excelForm.append(html);
     $excelForm.submit();
-}
+};
