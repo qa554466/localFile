@@ -49,36 +49,36 @@ function downloadBlob(options) {
 	}
 	xmlhttp.open('POST', options.servceUrl, true);
 	
-	 //监听进度事件
-    xmlhttp.addEventListener("progress", function (evt) {
-        if (evt.lengthComputable) {
-            var percentComplete = evt.loaded / evt.total;
-            console.log(percentComplete);
-            //$("#progressing").html((percentComplete * 100) + "%");
-        }
-    }, false);
+	//监听进度事件
+	xmlhttp.addEventListener("progress", function (evt) {
+		if (evt.lengthComputable) {
+			var percentComplete = evt.loaded / evt.total;
+			console.log(percentComplete);
+			//$("#progressing").html((percentComplete * 100) + "%");
+		}
+	}, false);
             
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");// form表单请求
 	xmlhttp.responseType = 'blob'; // 二进制数据
 	xmlhttp.onload = function () {
-     	if (this.status == 200) {
-       		var content = this.response;
-       		
-       		// 下载方法
-       		dataURL = URL.createObjectURL(content);//从 blob 创建一个新的 URL 对象。
-       		//downloadPic(dataURL,options.fileName);
-       		
-       		if(typeof window.navigator.msSaveBlob !== 'undefined') {
-            	
-                // IE version
-                var blob = new Blob([content], { type: 'application/force-download' });
-                window.navigator.msSaveBlob(blob, options.fileName);
-            }else{
-            	
-                downloadPic(dataURL,options.fileName);
-            }
-       		
-     	}
+		if (this.status == 200) {
+			var content = this.response;
+
+			// 下载方法
+			dataURL = URL.createObjectURL(content);//从 blob 创建一个新的 URL 对象。
+			//downloadPic(dataURL,options.fileName);
+
+			if(typeof window.navigator.msSaveBlob !== 'undefined') {
+
+			// IE version
+			var blob = new Blob([content], { type: 'application/force-download' });
+			window.navigator.msSaveBlob(blob, options.fileName);
+		    }else{
+
+			downloadPic(dataURL,options.fileName);
+		    }
+
+		}
      	
      	// 去掉加载样式
    		if(options.idName){
